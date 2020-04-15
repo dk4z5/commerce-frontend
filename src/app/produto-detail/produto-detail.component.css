@@ -1,0 +1,26 @@
+
+
+mat-list-item.align{
+  margin-top: 40px;
+}
+
+.form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-card {
+  padding-left: 5%;
+  max-width: 500px;
+  height: 300px;
+}
+
+.button-save{
+  float: right;
+  padding-right: 15%;
+}

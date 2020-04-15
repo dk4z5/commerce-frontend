@@ -1,0 +1,54 @@
+<table class="full-width" cellspacing="0">
+  <tr>
+    <td>
+      <mat-form-field class="full-width">
+        <mat-label>Nome ou descrição</mat-label>
+        <input matInput [(ngModel)]="this.produtoInfo.nome" name="nome" value={{this.produtoInfo.nome}}>
+      </mat-form-field>
+    </td>
+    <td>
+      <button mat-icon-button (click)="updateSearch()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>
+
+<mat-table multiTemplateDataRows [dataSource]="produtos" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+    <mat-cell *matCellDef="let prod">{{prod.id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="nome">
+    <mat-header-cell *matHeaderCellDef>Nome do produto</mat-header-cell>
+    <mat-cell *matCellDef="let prod">{{prod.nome}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="preco">
+    <mat-header-cell *matHeaderCellDef>Preço</mat-header-cell>
+    <mat-cell *matCellDef="let prod">{{prod.preco_base | currency:'BRL':'symbol':'1.2-2' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="descricao">
+    <mat-header-cell *matHeaderCellDef>Descrição</mat-header-cell>
+    <mat-cell *matCellDef="let prod">
+      <button mat-icon-button (click)="openSnack($event,prod)">
+        <mat-icon>help_outline</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let prod; columns: displayedColumns;" 
+    class="produto-row" 
+    (click)="closeDialog(prod)"
+    >
+  </mat-row>
+</mat-table>
+
+
+<ng-template #snackBarTemplate let-selProduto>
+  {{selProduto.descricao}}
+</ng-template>

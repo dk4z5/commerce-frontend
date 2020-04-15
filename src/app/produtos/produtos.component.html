@@ -1,0 +1,132 @@
+<mat-toolbar class="toolbar-style">
+  <span class="search-combo">
+    <mat-form-field class="toolbar-button">
+      <mat-label>Pesquisar</mat-label>
+      <input #searchButton matInput [(ngModel)]="search_text">
+    </mat-form-field>
+    <button mat-icon-button class="toolbar-div">
+      <mat-icon>search</mat-icon>
+    </button>
+  </span>
+
+  <span class="spacer"></span>
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" class="paginator-style">
+  </mat-paginator>
+</mat-toolbar>
+<mat-tab-group (selectedIndexChange)="setTabIndex($event)">
+  <mat-tab label="Todos os Produtos">
+    <ng-template [ngTemplateOutlet]="produtosTable"></ng-template>
+  </mat-tab>
+
+  <mat-tab label="Produtos em falta">
+    <ng-template [ngTemplateOutlet]="produtosTable"></ng-template>
+  </mat-tab>
+
+  <mat-tab label="Adicionar Produto">
+    <div class="div-add-product">
+      <mat-card class="card-add-product">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>
+            add_shopping_cart
+          </mat-icon>
+          <mat-card-title>
+            Dados do produto
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>
+            <mat-form-field class="full-width">
+              <mat-label>Nome do Produto</mat-label>
+              <input matInput placeholder="" [(ngModel)]="newProduto.nome" name="nome" value={{newProduto.nome}}>
+            </mat-form-field>
+          </p>
+
+          <mat-form-field class="full-width">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput placeholder="" [(ngModel)]="newProduto.descricao" name="descricao"
+              value={{newProduto.descricao}}></textarea>
+          </mat-form-field>
+
+          <table class="full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="full-width">
+                  <mat-label>Quantidade</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="newProduto.quantidade" name="quantidade"
+                    value={{newProduto.quantidade}}>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field class="full-width">
+                  <mat-label>Quantidade Alerta</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="newProduto.quantidade_alerta" name="quantidade_alerta"
+                    value={{newProduto.quantidade_alerta}}>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+
+
+          <mat-form-field class="full-width">
+            <mat-label>Preço</mat-label>
+            <input matInput placeholder="" [(ngModel)]="newProduto.preco_base" name="preco">
+          </mat-form-field>
+
+          <mat-card-actions>
+
+            <button mat-icon-button (click)="save()" class="button-save">
+              <mat-icon>save</mat-icon>
+              <mat-label>Salvar</mat-label>
+            </button>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+
+<ng-template #produtosTable>
+
+  <!--<div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>-->
+
+  <mat-table multiTemplateDataRows [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+      <mat-cell *matCellDef="let prod">{{prod.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nome">
+      <mat-header-cell *matHeaderCellDef>Nome do produto</mat-header-cell>
+      <mat-cell *matCellDef="let prod">{{prod.nome}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="preco">
+      <mat-header-cell *matHeaderCellDef>Preço</mat-header-cell>
+      <mat-cell *matCellDef="let prod">{{prod.preco_base | currency:'BRL':'symbol':'1.2-2' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="quantidade">
+      <mat-header-cell *matHeaderCellDef>Quantidade</mat-header-cell>
+      <mat-cell *matCellDef="let prod">{{prod.quantidade}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes">
+      <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+      <mat-cell *matCellDef="let prod">
+        <button mat-icon-button (click)="openEditDialog(prod)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let prod; columns: displayedColumns;" class="produto-row">
+    </mat-row>
+  </mat-table>
+</ng-template>

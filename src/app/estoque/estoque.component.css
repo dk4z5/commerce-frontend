@@ -1,0 +1,24 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+
+.full-width{
+    width: 100%
+}
+
+.toolbar-style {
+    background-color: #424242;
+    height: 15%;
+}
+
+.div-add-estoque{
+    padding-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-add-estoque mat-card{
+    width: 50%;
+}

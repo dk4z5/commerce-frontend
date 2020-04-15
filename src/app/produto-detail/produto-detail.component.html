@@ -1,0 +1,55 @@
+<mat-card *ngIf="produto">
+  <mat-card-header>
+    <mat-icon mat-card-avatar >
+      edit
+    </mat-icon>
+    <mat-card-title>
+      {{produto.nome}} Código: {{produto.id}}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    
+    <form class="form" #f="ngForm">
+      <p><mat-form-field  class="full-width">
+        <mat-label>Nome do Produto</mat-label>
+        <input matInput placeholder="" [(ngModel)]="produto.nome" name="nome" value={{produto.nome}}>
+      </mat-form-field></p>
+  
+      <mat-form-field class="full-width">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput placeholder="" [(ngModel)]="produto.descricao" name="descricao" value={{produto.descricao}}></textarea>
+      </mat-form-field>
+  
+      <table class="full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="full-width">
+          <mat-label>Quantidade</mat-label>
+          <input matInput placeholder="" [(ngModel)]="produto.quantidade" name="quantidade" value={{produto.quantidade}}>
+        </mat-form-field></td>
+        
+      <td><mat-form-field class="full-width">
+        <mat-label>Quantidade Alerta</mat-label>
+        <input matInput placeholder="" [(ngModel)]="produto.quantidade_alerta" name="quantidade_alerta" value={{produto.quantidade_alerta}}>
+        </mat-form-field></td>
+      </tr></table>
+  
+      <mat-form-field class="full-width">
+        <mat-label>Data de Inserção</mat-label>
+        <input matInput disabled placeholder="" [(ngModel)]="produto.data_insercao" name="data_insercao" value={{produto.data_insercao}}>
+      </mat-form-field>
+    </form>
+
+    <mat-card-actions>
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>keyboard_backspace</mat-icon>
+        <mat-label>Voltar</mat-label>
+      </button>
+    
+      <button mat-icon-button (click)="save()" class="button-save">
+        <mat-icon>save</mat-icon>
+        <mat-label>Salvar</mat-label>
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
+
+</mat-card>

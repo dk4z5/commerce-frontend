@@ -1,0 +1,15 @@
+mat-form-field {
+    line-height: 0.7;
+}
+
+.mat-form-field {
+    font-size: 20px;
+}
+
+mat-form-field mat-label {
+    font-size: 15px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

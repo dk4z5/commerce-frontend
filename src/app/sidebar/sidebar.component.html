@@ -1,0 +1,40 @@
+<div class="main-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="app-name">Metamorfose</h1>
+    <span class="spacer"></span>
+    <div class="logoff-div">
+      <button mat-icon-button (click)="deslogar()">
+        <mat-icon inline=true aria-label="Deslogar do sistema">exit_to_app</mat-icon>
+        Deslogar
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #snav>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="'/dashboard'"> Visão Geral </a>
+        <a mat-list-item [routerLink]="'/vendas'"> Vendas </a>
+        <a mat-list-item [routerLink]="'/caixa-tabela'"> Caixa </a>
+        <a mat-list-item [routerLink]="'/produtos'"> Produtos </a>
+        <a mat-list-item [routerLink]="'/estoques'"> Estoque </a>
+        <button mat-icon-button (click)="snav.toggle()">
+          <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">
+      <div style="height: 88vh;">
+
+        <router-outlet></router-outlet>
+        <app-messages></app-messages>
+
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>

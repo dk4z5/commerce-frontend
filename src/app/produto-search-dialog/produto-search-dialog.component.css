@@ -1,0 +1,51 @@
+.full-width {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+mat-row.detail-row {
+  height: 0;
+}
+
+mat-row.produto-row:hover {
+  background: rgb(99, 99, 99);
+}
+
+mat-row.produto-row:active {
+  background: rgb(133, 133, 133);
+}
+
+.produto-row mat-cell {
+  border-bottom-width: 0;
+}
+
+.produto-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.produto-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.produto-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.produto-description {
+  padding: 16px;
+}
+
+.produto-description-atmat-rowibution {
+  opacity: 0.5;
+}

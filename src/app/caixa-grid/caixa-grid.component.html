@@ -1,0 +1,201 @@
+<div class="grid-container">
+  <div class="grid-item">
+    <form class="form" #f="ngForm" class="grid-card">
+
+      <mat-card>
+        <mat-card-header>
+          <mat-icon mat-card-avatar>account_box</mat-icon>
+          <mat-card-title>Informações da compra</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <tr>
+            <td class="full-width">
+              <mat-form-field class="full-width">
+                <mat-label>Nome do cliente</mat-label>
+                <input matInput placeholder="" [ngModel]="venda.cliente" name="cliente-nome" value="Anonimo">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-label>Percentual de Desconto</mat-label>
+                <input matInput placeholder="" [(ngModel)]="venda.desconto" name="venda-desconto"
+                  value={{venda.desconto}}>
+              </mat-form-field>
+            </td>
+          </tr>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-icon mat-card-avatar>add_shopping_cart</mat-icon>
+          <mat-card-title>Produtos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table class="full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="full-width">
+                  <mat-label>Nome do Produto</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="produto.nome" name="nome" value={{produto.nome}}>
+                </mat-form-field>
+              </td>
+              <td>
+                <button mat-icon-button (click)="openSearch()">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </table>
+          <table class="full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="full-width">
+                  <mat-label>Código do produto</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="produto.id" name="codigo" value={{produto.id}}>
+                </mat-form-field>
+              </td>
+              <td>
+                <button mat-icon-button (click)="getByCode()">
+                  <mat-icon>description</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </table>
+          <table class="full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="full-width">
+                  <mat-label>Quantidade</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="produto.quantidade" name="quantidade"
+                    value={{produto.quantidade}}>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="full-width">
+                  <mat-label>Percentual de Desconto</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="produto.desconto" name="produto-desconto"
+                    value={{produto.desconto}}>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+          <table class="full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-label *ngIf="produto.preco_base"> Preço: {{produto.preco_base | currency:'BRL':'symbol':'1.2-2'}}
+                </mat-label>
+              </td>
+              <td>
+                <mat-label *ngIf="produto.desconto"> Preço com desconto:
+                  {{produto.preco_base - produto.preco_base*produto.desconto/100 | currency:'BRL':'symbol':'1.2-2'}}
+                </mat-label>
+              </td>
+            </tr>
+          </table>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="addProduto()">Adicionar</button>
+          <button mat-button (click)="clearProduto()">Limpar</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </form>
+  </div>
+  <div class="grid-item grid-card">
+    <div class="div-table">
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+          <mat-cell *matCellDef="let prod">{{prod.id}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef>Nome do produto</mat-header-cell>
+          <mat-cell *matCellDef="let prod">{{prod.nome}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="preco">
+          <mat-header-cell *matHeaderCellDef>Preço</mat-header-cell>
+          <mat-cell *matCellDef="let prod">{{prod.preco_base | currency:'BRL':'symbol':'1.2-2'}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="precoDesconto">
+          <mat-header-cell *matHeaderCellDef>Preço Desconto</mat-header-cell>
+          <mat-cell *matCellDef="let prod">
+            {{produto.preco_base - produto.preco_base*produto.desconto/100 | currency:'BRL':'symbol':'1.2-2'}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="desconto">
+          <mat-header-cell *matHeaderCellDef>Desconto</mat-header-cell>
+          <mat-cell *matCellDef="let prod">{{prod.desconto | currency:'BRL':'symbol':'1.2-2'}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade">
+          <mat-header-cell *matHeaderCellDef>Quantidade</mat-header-cell>
+          <mat-cell *matCellDef="let prod">{{prod.quantidade}}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+        </mat-row>
+
+      </mat-table>
+    </div>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title class="total">
+          <mat-icon mat-card-avatar>stars</mat-icon>
+          <mat-label> Total: {{valorTotalDesc | currency:'BRL':'symbol':'1.2-2'}}
+          </mat-label>
+          <mat-label [ngClass]="{'no-money': venda.pagamento != 'money'}"> Troco:
+            {{ troco == null? 'N/D': (troco | currency:'BRL':'symbol':'1.2-2')}}
+          </mat-label>
+          <button mat-button (click)="fecharCompra()">Fechar Compra</button>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <tr>
+          <td>
+            <mat-form-field class="bottom-pagamento">
+              <mat-label>Tipo de pagamento</mat-label>
+              <select matNativeControl required [(ngModel)]="venda.pagamento" name="select-pag">
+                <option value="credit">Cŕedito</option>
+                <option value="debit">Débito</option>
+                <option value="money">Á vista</option>
+              </select>
+            </mat-form-field>
+          </td>
+          <td *ngIf="venda.pagamento == 'money'" style="padding-left: 5%" class="full-width">
+            <mat-form-field class="full-width bottom-pagamento">
+              <mat-label>Total recebido</mat-label>
+              <input matInput placeholder="" [(ngModel)]="venda.recebido" (input)="updateTroco($event.target.value)" name="venda-total">
+            </mat-form-field>
+          </td>
+          <td>
+            <button mat-button (click)="removerSelect()">Remover Selecionados</button>
+          </td>
+        </tr>
+      </mat-card-content>
+      <mat-card-actions>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

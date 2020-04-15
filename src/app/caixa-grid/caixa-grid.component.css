@@ -1,0 +1,76 @@
+.grid-container {
+  display: grid;
+  padding-left: 1%;
+  grid-template-columns: 40% auto;
+  grid-template-rows: auto auto;
+  grid-gap: 0.25%;
+}
+
+.grid-card {
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 2%
+}
+
+.grid-item {
+  padding: 5px;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-column-id .mat-column-selector {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 10% !important;
+  float: left;
+  width: 10% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.div-table { 
+  max-height: 360px;
+  height: 300px !important;
+  overflow: auto;
+}
+
+.mat-table {
+  height: 100% !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-card-title.total {
+  display: grid;
+  grid-template-columns: 5% auto auto 20%;
+  font-size: 40px;
+  gap: 10%;
+}
+
+mat-card-title.total mat-label.no-money{
+  background-color: #000000 !important;
+  color: #707070;
+}
+
+mat-card-title.total mat-label{
+  background-color: brown;
+}
+
+mat-form-field.bottom-pagamento {
+  font-size: 15px;
+}
+
+mat-card-title.total mat-icon {
+  font-size: 60px;
+}
