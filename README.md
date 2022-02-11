@@ -1,6 +1,6 @@
 # CommApp
 
-Frontend em Django para aplicação de vendas e estoque de um bar.
+Frontend em Angular para aplicação de vendas e estoque de um bar.
 Projeto descontinuado.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.25.
